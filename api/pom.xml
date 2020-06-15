@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ This file pom.xml is part of a project StrawAPI.api.
+  ~ It was created on 15/06/2020 10:08 by Eclixal.
+  ~ This file as the whole project shouldn't be modify by others without the express permission from StrawberryCorps author(s).
+  ~ Also this comment shouldn't get remove from the file. (see Licence)
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>StrawAPI</artifactId>
+        <groupId>bzh.strawberry</groupId>
+        <version>0.0.1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>api</artifactId>
+
+</project>
