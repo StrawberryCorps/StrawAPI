@@ -1,5 +1,6 @@
 package bzh.strawberry.api;
 
+import bzh.strawberry.api.factory.DataFactory;
 import bzh.strawberry.api.gui.IInterfaceManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,5 +21,6 @@ public abstract class StrawAPI extends JavaPlugin {
     public static StrawAPI getAPI(){ return API;}
 
     public abstract IInterfaceManager getInterfaceManager();
+    public abstract DataFactory getDataFactory();
 
 }

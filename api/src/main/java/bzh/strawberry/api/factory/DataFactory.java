@@ -1,6 +1,6 @@
 package bzh.strawberry.api.factory;
 
-import java.sql.Connection;
+import javax.sql.DataSource;
 
 /*
  * This file DataFactory is part of a project StrawAPI.api.
@@ -9,5 +9,5 @@ import java.sql.Connection;
  * Also this comment shouldn't get remove from the file. (see Licence)
  */
 public abstract class DataFactory {
-    public abstract Connection getConnection();
+    public abstract DataSource getDataSource();
 }

@@ -1,10 +1,15 @@
 package bzh.strawberry.core;
 
 import bzh.strawberry.api.StrawAPI;
+import bzh.strawberry.api.factory.DataFactory;
+import bzh.strawberry.core.factory.MySQLFactory;
+import bzh.strawberry.core.factory.SQLiteFactory;
 import bzh.strawberry.core.gui.InterfaceManager;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.Arrays;
 
 /*
@@ -20,6 +25,7 @@ public class StrawCore extends StrawAPI {
     /*************/
 
     private InterfaceManager interfaceManager;
+    private DataFactory dataFactory;
 
     @Override
     public void onLoad(){
@@ -36,13 +42,62 @@ public class StrawCore extends StrawAPI {
 
         this.interfaceManager = new InterfaceManager();
 
+        File fileConfig = new File(getDataFolder().getAbsoluteFile().getParentFile().getParentFile(), "data.yml");
+        if (!fileConfig.exists()) {
+            info("Cannot find the database configuration !");
+            this.getServer().shutdown();
+            return;
+        } else {
+            YamlConfiguration dataYML = YamlConfiguration.loadConfiguration(fileConfig);
+
+            String sqlUrl = dataYML.getString("url", "127.0.0.1");
+            String sqlUsername = dataYML.getString("user", "root");
+            String sqlPassword = dataYML.getString("pass", "passw0rd");
+            int sqlMinPoolSize = dataYML.getInt("minpoolsize", 1);
+            int sqlMaxPoolSize = dataYML.getInt("maxpoolsize", 10);
+
+            if (dataYML.getString("datatype").equals("mysql")) {
+                dataFactory = new MySQLFactory(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+            } else if (dataYML.getString("datatype").equals("sqlite")) {
+                dataFactory = new SQLiteFactory(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+            }
+
+            if (dataFactory == null) {
+                this.getServer().shutdown();
+                throw new NullPointerException("DataFactory can't be null ! Please verify data.yml !");
+            }
+        }
+
         info("[CORE] Core enabled in " + (System.currentTimeMillis() - startEnable) + " ms...");
 
     }
 
     @Override
+    public void onDisable() {
+        // Disconnect all datasource !
+        if (getDataFactory() instanceof MySQLFactory) {
+            try {
+                ((MySQLFactory) getDataFactory()).shutdownDataSource(getDataFactory().getDataSource());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (getDataFactory() instanceof SQLiteFactory) {
+            try {
+                ((SQLiteFactory) getDataFactory()).shutdownDataSource(getDataFactory().getDataSource());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public InterfaceManager getInterfaceManager() {
         return interfaceManager;
+    }
+
+    @Override
+    public DataFactory getDataFactory() {
+        return this.dataFactory;
     }
 
     private void info(String msg){

@@ -1,0 +1,6 @@
+url: 127.0.0.1
+user: root
+pass: Password
+minpoolsize: 1
+maxpoolsize: 10
+datatype: mysql
