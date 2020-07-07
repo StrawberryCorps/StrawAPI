@@ -21,7 +21,6 @@
     <artifactId>api</artifactId>
 
     <repositories>
-        <!-- This adds the Spigot Maven repository to the build -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -35,6 +34,13 @@
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit-1.15.2</artifactId>
+            <version>1.15.2</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
