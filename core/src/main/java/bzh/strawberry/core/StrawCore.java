@@ -7,7 +7,6 @@ import bzh.strawberry.core.factory.SQLiteFactory;
 import bzh.strawberry.core.gui.InterfaceManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.Arrays;
@@ -57,9 +56,9 @@ public class StrawCore extends StrawAPI {
             int sqlMaxPoolSize = dataYML.getInt("maxpoolsize", 10);
 
             if (dataYML.getString("datatype").equals("mysql")) {
-                dataFactory = new MySQLFactory(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+                dataFactory = MySQLFactory.getInstance(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
             } else if (dataYML.getString("datatype").equals("sqlite")) {
-                dataFactory = new SQLiteFactory(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+                dataFactory = SQLiteFactory.getInstance(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
             }
 
             if (dataFactory == null) {

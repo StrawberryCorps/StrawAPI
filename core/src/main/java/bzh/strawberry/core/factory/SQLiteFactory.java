@@ -11,17 +11,16 @@ import bzh.strawberry.api.factory.DataFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 
 public class SQLiteFactory extends DataFactory {
 
     public static SQLiteFactory instance = null;
     public DataSource dataSource = null;
-    private String url;
-    private String name;
-    private String password;
-    private int minPoolSize;
-    private int maxPoolSize;
+    private final String url;
+    private final String name;
+    private final String password;
+    private final int minPoolSize;
+    private final int maxPoolSize;
 
     public SQLiteFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) {
         this.url = url;

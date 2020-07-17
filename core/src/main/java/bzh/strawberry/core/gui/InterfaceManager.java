@@ -10,7 +10,6 @@ package bzh.strawberry.core.gui;
 import bzh.strawberry.api.gui.AbstractInterface;
 import bzh.strawberry.api.gui.IInterfaceManager;
 import bzh.strawberry.core.StrawCore;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InterfaceManager implements IInterfaceManager, Listener {
 
-    private ConcurrentHashMap<UUID, AbstractInterface> openedInterface;
+    private final ConcurrentHashMap<UUID, AbstractInterface> openedInterface;
 
     public InterfaceManager() {
         this.openedInterface = new ConcurrentHashMap<>();

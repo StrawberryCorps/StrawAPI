@@ -12,8 +12,8 @@ Also this comment shouldn't get remove from the file. (see Licence.md)
 public class Cuboid {
 
     private Location center;
-    private Location pos1;
-    private Location pos2;
+    private final Location pos1;
+    private final Location pos2;
 
     private World world;
     private int xMin, yMin, zMin, xMax, yMax, zMax;

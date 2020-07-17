@@ -16,11 +16,11 @@ public class MySQLFactory extends DataFactory {
 
     public static MySQLFactory instance = null;
     public DataSource dataSource = null;
-    private String url;
-    private String name;
-    private String password;
-    private int minPoolSize;
-    private int maxPoolSize;
+    private final String url;
+    private final String name;
+    private final String password;
+    private final int minPoolSize;
+    private final int maxPoolSize;
 
     public MySQLFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) {
         this.url = url;
