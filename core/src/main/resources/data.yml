@@ -4,3 +4,4 @@ pass: Password
 minpoolsize: 1
 maxpoolsize: 10
 datatype: mysql
+database: test

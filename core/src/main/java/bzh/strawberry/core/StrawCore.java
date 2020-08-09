@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 /*
@@ -41,7 +42,10 @@ public class StrawCore extends StrawAPI {
 
         this.interfaceManager = new InterfaceManager();
 
-        File fileConfig = new File(getDataFolder().getAbsoluteFile().getParentFile().getParentFile(), "data.yml");
+        info("Loading database configuration...");
+        this.saveResource("data.yml", false);
+
+        File fileConfig = new File(getDataFolder(), "data.yml");
         if (!fileConfig.exists()) {
             info("Cannot find the database configuration !");
             this.getServer().shutdown();
@@ -52,11 +56,16 @@ public class StrawCore extends StrawAPI {
             String sqlUrl = dataYML.getString("url", "127.0.0.1");
             String sqlUsername = dataYML.getString("user", "root");
             String sqlPassword = dataYML.getString("pass", "passw0rd");
+            String database = dataYML.getString("database", "strawberry");
             int sqlMinPoolSize = dataYML.getInt("minpoolsize", 1);
             int sqlMaxPoolSize = dataYML.getInt("maxpoolsize", 10);
 
             if (dataYML.getString("datatype").equals("mysql")) {
-                dataFactory = MySQLFactory.getInstance(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+                try {
+                    dataFactory = MySQLFactory.getInstance("jdbc:mysql://" + sqlUrl + ":3306/" + database, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             } else if (dataYML.getString("datatype").equals("sqlite")) {
                 dataFactory = SQLiteFactory.getInstance(sqlUrl, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
             }
@@ -64,7 +73,8 @@ public class StrawCore extends StrawAPI {
             if (dataFactory == null) {
                 this.getServer().shutdown();
                 throw new NullPointerException("DataFactory can't be null ! Please verify data.yml !");
-            }
+            } else
+                info("Database successfully connected with " + dataYML.getString("datatype") + "-Connector");
         }
 
         info("[CORE] Core enabled in " + (System.currentTimeMillis() - startEnable) + " ms...");

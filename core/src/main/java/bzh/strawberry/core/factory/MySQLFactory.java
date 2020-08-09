@@ -11,6 +11,8 @@ import bzh.strawberry.api.factory.DataFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MySQLFactory extends DataFactory {
 
@@ -22,7 +24,7 @@ public class MySQLFactory extends DataFactory {
     private final int minPoolSize;
     private final int maxPoolSize;
 
-    public MySQLFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) {
+    public MySQLFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) throws SQLException {
         this.url = url;
         this.name = name;
         this.password = password;
@@ -31,7 +33,7 @@ public class MySQLFactory extends DataFactory {
         this.setupDataSource();
     }
 
-    public static MySQLFactory getInstance(String url, String name, String password, int minPoolSize, int maxPoolSize) {
+    public static MySQLFactory getInstance(String url, String name, String password, int minPoolSize, int maxPoolSize) throws SQLException {
         if (MySQLFactory.instance == null) synchronized (MySQLFactory.class) {
             if (MySQLFactory.instance == null) {
                 MySQLFactory.instance = new MySQLFactory(url, name, password, minPoolSize, maxPoolSize);
@@ -40,7 +42,7 @@ public class MySQLFactory extends DataFactory {
         return MySQLFactory.instance;
     }
 
-    public void setupDataSource() {
+    public void setupDataSource() throws SQLException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(this.url);
@@ -49,6 +51,15 @@ public class MySQLFactory extends DataFactory {
         dataSource.setInitialSize(this.minPoolSize);
         dataSource.setMaxTotal(this.maxPoolSize);
         this.dataSource = dataSource;
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            if (connection != null)
+                connection.close();
+        }
     }
 
     @Override
