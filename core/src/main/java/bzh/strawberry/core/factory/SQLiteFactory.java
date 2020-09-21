@@ -11,6 +11,9 @@ import bzh.strawberry.api.factory.DataFactory;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SQLiteFactory extends DataFactory {
 
@@ -22,7 +25,7 @@ public class SQLiteFactory extends DataFactory {
     private final int minPoolSize;
     private final int maxPoolSize;
 
-    public SQLiteFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) {
+    public SQLiteFactory(String url, String name, String password, int minPoolSize, int maxPoolSize) throws SQLException {
         this.url = url;
         this.name = name;
         this.password = password;
@@ -31,7 +34,7 @@ public class SQLiteFactory extends DataFactory {
         this.setupDataSource();
     }
 
-    public static SQLiteFactory getInstance(String url, String name, String password, int minPoolSize, int maxPoolSize) {
+    public static SQLiteFactory getInstance(String url, String name, String password, int minPoolSize, int maxPoolSize) throws SQLException {
         if (SQLiteFactory.instance == null) synchronized (SQLiteFactory.class) {
             if (SQLiteFactory.instance == null) {
                 SQLiteFactory.instance = new SQLiteFactory(url, name, password, minPoolSize, maxPoolSize);
@@ -40,15 +43,26 @@ public class SQLiteFactory extends DataFactory {
         return SQLiteFactory.instance;
     }
 
-    public void setupDataSource() {
+    public void setupDataSource() throws SQLException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
-        dataSource.setUrl(this.url);
-        dataSource.setUsername(this.name);
-        dataSource.setPassword(this.password);
+        dataSource.setUrl("jdbc:sqlite:" + this.url);
         dataSource.setInitialSize(this.minPoolSize);
         dataSource.setMaxTotal(this.maxPoolSize);
         this.dataSource = dataSource;
+
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("create table if not exists straw_player(id integer not null constraint straw_player_pk primary key autoincrement, uuid varchar(255) not null,\tlang varchar(255) default 'fr'); create unique index if not exists straw_player_id_uindex on straw_player (id); create unique index if not exists straw_player_uuid_uindex on straw_player (uuid);");
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            if (connection != null)
+                connection.close();
+        }
     }
 
     @Override
