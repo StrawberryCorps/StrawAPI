@@ -1,6 +1,5 @@
 package bzh.strawberry.core.listeners;
 
-import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.player.StrawPlayer;
 import org.bukkit.entity.Player;
@@ -23,9 +22,7 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         StrawPlayer strawPlayer = new StrawPlayer(player);
-        strawPlayer.load(() -> {
-            player.sendMessage(StrawAPI.getAPI().getL10n().getTranslation(player.getUniqueId(), "core"));
-        });
+        strawPlayer.load(() -> {});
         StrawCore.getInstance().getPlayers().add(strawPlayer);
     }
 
