@@ -1,0 +1,23 @@
+{
+  "survie.warp.exist": "§cUn warp est déjà défini avec ce nom !",
+  "survie.warp.create": "§3Le warp §9{name} §3a été créé !",
+  "survie.error": "§cUne erreur est survenue ! ('{error}')",
+  "survie.warp.notexist": "§cIl n'y a aucun warp avec ce nom !",
+  "survie.warp.delete": "§3Le warp §9{name} §3a été supprimé !",
+  "survie.afk": "§cVous êtes inactif depuis 15 minutes !",
+  "survie.loterie.1h": "§8[§3§lLoterie§8] §7Le tirage va avoir lieu dans 1 heure ! §b/loterie",
+  "survie.loterie.30m": "§8[§3§lLoterie§8] §7Le tirage va avoir lieu dans 30 minutes ! §b/loterie",
+  "survie.claim.admin.addP": "§7Ajoute un joueur a un claim",
+  "survie.claim.admin.removeP": "§7Supprime un joueur d'un claim",
+  "survie.claim.admin.removeC": "§7Supprime claim",
+  "survie.claim.admin.owner": "§8» §7Change le chef d'un claim",
+  "survie.claim.admin.banque": "§7Change la banque d'un claim",
+  "survie.player.notexist": "§cCe joueur n'existe pas §l☠",
+  "survie.player.notonline": "§cCe joueur n'est pas connecté §l☠",
+  "survie.player.notclaim": "§cCe joueur n'a pas de claim ☠",
+  "survie.player.isonclaim": "§cCe joueur est déjà dans un claim ☠",
+  "survie.admin.add": "§3Vous venez d'ajouter §b%s §3au claim de §b%s",
+  "survie.player.isnothere": "§cCe joueur n'est pas dans ce claim ☠",
+  "survie.admin.isowner": "§cCe joueur est déjà chef du claim ☠",
+  "survie.admin.changeowner": "§7Vous venez de changer le chef du claim !"
+}
