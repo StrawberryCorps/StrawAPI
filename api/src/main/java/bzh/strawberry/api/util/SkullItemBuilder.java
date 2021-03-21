@@ -52,7 +52,6 @@ public class SkullItemBuilder extends ItemStackBuilder {
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
         Field profileField;
         try {
-            assert tempSkullMeta != null;
             profileField = tempSkullMeta.getClass().getDeclaredField("profile");
             profileField.setAccessible(true);
             profileField.set(tempSkullMeta, profile);

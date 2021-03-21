@@ -1,12 +1,17 @@
 package bzh.strawberry.core.player;
 
 import bzh.strawberry.api.StrawAPI;
+import bzh.strawberry.api.player.IStrawPlayer;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.callback.Callback;
 import bzh.strawberry.core.l10n.data.Language;
+import bzh.strawberry.core.net.StrawScoreboard;
 import org.bukkit.entity.Player;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /*
@@ -16,11 +21,13 @@ import java.util.UUID;
  *  Also this comment shouldn't get remove from the file. (see Licence)
  */
 
-public class StrawPlayer {
+public class StrawPlayer implements IStrawPlayer {
 
     private int strawId;
     private final Player player;
     private Language lang;
+
+    private StrawScoreboard strawScoreboard;
 
     public StrawPlayer(Player player) {
         this.player = player;
@@ -75,5 +82,18 @@ public class StrawPlayer {
 
     public Language getLang() {
         return this.lang;
+    }
+
+    @Override
+    public StrawScoreboard getScoreboard() throws Exception {
+        if (this.strawScoreboard == null)
+            throw new Exception("");
+        return this.strawScoreboard;
+    }
+
+    public void createScoreBoard(String objectiveName) {
+        if (this.strawScoreboard == null)
+            this.strawScoreboard = new StrawScoreboard(this.player, objectiveName);
+        this.strawScoreboard.create();
     }
 }

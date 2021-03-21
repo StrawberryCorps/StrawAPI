@@ -3,12 +3,14 @@ package bzh.strawberry.core;
 import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.factory.DataFactory;
 import bzh.strawberry.api.l10n.ILang;
+import bzh.strawberry.api.net.IStrawChat;
 import bzh.strawberry.core.factory.MySQLFactory;
 import bzh.strawberry.core.factory.SQLiteFactory;
 import bzh.strawberry.core.gui.InterfaceManager;
 import bzh.strawberry.core.l10n.L10nManager;
 import bzh.strawberry.core.l10n.Lang;
 import bzh.strawberry.core.listeners.PlayerListener;
+import bzh.strawberry.core.net.StrawChat;
 import bzh.strawberry.core.player.StrawPlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
@@ -39,6 +41,7 @@ public class StrawCore extends StrawAPI {
 
     private L10nManager l10nManager;
     private Lang lang;
+    private StrawChat strawChat;
 
     private List<StrawPlayer> players;
 
@@ -96,6 +99,7 @@ public class StrawCore extends StrawAPI {
         this.players = new ArrayList<>();
         this.l10nManager = new L10nManager();
         this.lang = new Lang();
+        this.strawChat = new StrawChat();
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
@@ -170,10 +174,16 @@ public class StrawCore extends StrawAPI {
         return this.lang;
     }
 
+    @Override
+    public IStrawChat getChat() {
+        return this.strawChat;
+    }
+
     public L10nManager getL10nManager() {
         return l10nManager;
     }
 
+    @Override
     public StrawPlayer getStrawPlayer(UUID uuid) {
         return this.players.stream().filter(strawPlayer -> strawPlayer.getUniqueID().equals(uuid)).findFirst().orElse(null);
     }

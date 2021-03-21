@@ -1,6 +1,7 @@
 name: StrawCore
 main: bzh.strawberry.core.StrawCore
 version: 0.0.1
+api-version: 1.16
 authors:
   - Eclixal
   - Uicias

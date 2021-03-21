@@ -30,8 +30,6 @@ public abstract class AbstractInterface {
         this.player = player;
 
         this.inventory = Bukkit.createInventory(null, size, display);
-        this.show(player);
-        player.openInventory(this.inventory);
     }
 
     public abstract void show(Player player);
