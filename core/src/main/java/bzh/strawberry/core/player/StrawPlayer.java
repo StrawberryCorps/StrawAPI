@@ -4,7 +4,6 @@ import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawPlayer;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.callback.Callback;
-import bzh.strawberry.core.l10n.data.Language;
 import bzh.strawberry.core.net.StrawScoreboard;
 import org.bukkit.entity.Player;
 
@@ -25,7 +24,6 @@ public class StrawPlayer implements IStrawPlayer {
 
     private int strawId;
     private final Player player;
-    private Language lang;
 
     private StrawScoreboard strawScoreboard;
 
@@ -34,27 +32,25 @@ public class StrawPlayer implements IStrawPlayer {
     }
 
     public void load(Callback callback) {
-        StrawCore.getInstance().getServer().getScheduler().runTaskAsynchronously(StrawCore.getInstance(), () -> {
+        StrawCore.CORE.getServer().getScheduler().runTaskAsynchronously(StrawCore.CORE, () -> {
             try {
                 Connection connection = StrawAPI.getAPI().getDataFactory().getDataSource().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM straw_player WHERE `uuid` = '" + getUniqueID().toString() + "'");
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE `uuid` = '" + getUniqueID().toString() + "'");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     strawId = resultSet.getInt("id");
-                    lang = StrawCore.getInstance().getL10nManager().getLanguage(resultSet.getString("lang"));
                     resultSet.close();
                 } else {
                     resultSet.close();
                     preparedStatement.close();
-                    preparedStatement = connection.prepareStatement("INSERT INTO straw_player (`uuid`) VALUES ('" + getUniqueID().toString() + "')");
+                    preparedStatement = connection.prepareStatement("INSERT INTO players (`uuid`) VALUES ('" + getUniqueID().toString() + "')");
                     preparedStatement.executeUpdate();
                     preparedStatement.close();
-                    preparedStatement = connection.prepareStatement("SELECT * FROM straw_player WHERE `uuid`= ?");
+                    preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE `uuid`= ?");
                     preparedStatement.setString(1, player.getUniqueId().toString());
                     ResultSet resultSet1 = preparedStatement.executeQuery();
                     if (resultSet1.next()) {
                         strawId = resultSet1.getInt("id");
-                        lang = StrawCore.getInstance().getL10nManager().getLanguage(resultSet1.getString("lang"));
                     }
                     resultSet1.close();
                 }
@@ -78,10 +74,6 @@ public class StrawPlayer implements IStrawPlayer {
 
     public UUID getUniqueID() {
         return this.player.getUniqueId();
-    }
-
-    public Language getLang() {
-        return this.lang;
     }
 
     @Override

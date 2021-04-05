@@ -41,9 +41,10 @@
         </dependency>
         <dependency>
             <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit-1.16.3</artifactId>
-            <version>1.16.3</version>
-            <scope>compile</scope>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/craftbukkit-1.16.5.jar</systemPath>
         </dependency>
     </dependencies>
 

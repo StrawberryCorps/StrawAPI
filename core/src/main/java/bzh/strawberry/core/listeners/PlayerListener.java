@@ -23,13 +23,13 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         StrawPlayer strawPlayer = new StrawPlayer(player);
         strawPlayer.load(() -> {});
-        StrawCore.getInstance().getPlayers().add(strawPlayer);
+        StrawCore.CORE.getPlayers().add(strawPlayer);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        StrawCore.getInstance().getPlayers().remove(StrawCore.getInstance().getStrawPlayer(player.getUniqueId()));
+        StrawCore.CORE.getPlayers().remove(StrawCore.CORE.getStrawPlayer(player.getUniqueId()));
     }
 
 }

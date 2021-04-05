@@ -27,7 +27,7 @@ public class InterfaceManager implements IInterfaceManager, Listener {
 
     public InterfaceManager() {
         this.openedInterface = new ConcurrentHashMap<>();
-        StrawCore.getInstance().getServer().getPluginManager().registerEvents(this, StrawCore.getInstance());
+        StrawCore.CORE.getServer().getPluginManager().registerEvents(this, StrawCore.CORE);
     }
 
     @Override

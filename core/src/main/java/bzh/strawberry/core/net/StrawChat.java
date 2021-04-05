@@ -1,11 +1,11 @@
 package bzh.strawberry.core.net;
 
 import bzh.strawberry.api.net.IStrawChat;
-import net.minecraft.server.v1_16_R2.ChatMessageType;
-import net.minecraft.server.v1_16_R2.IChatBaseComponent;
-import net.minecraft.server.v1_16_R2.PacketPlayOutChat;
+import net.minecraft.server.v1_16_R3.ChatMessageType;
+import net.minecraft.server.v1_16_R3.IChatBaseComponent;
+import net.minecraft.server.v1_16_R3.PacketPlayOutChat;
 import org.bukkit.Color;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 /*
@@ -19,7 +19,7 @@ public class StrawChat implements IStrawChat {
     @Override
     public void sendMessageJson(Player player, String jsonMessage) {
         IChatBaseComponent base = IChatBaseComponent.ChatSerializer.a(jsonMessage);
-        PacketPlayOutChat chat = new PacketPlayOutChat(base, ChatMessageType.GAME_INFO, player.getUniqueId());
+        PacketPlayOutChat chat = new PacketPlayOutChat(base, ChatMessageType.CHAT, player.getUniqueId());
         ((CraftPlayer) player).getHandle().playerConnection.sendPacket(chat);
     }
 
