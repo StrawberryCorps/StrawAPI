@@ -26,6 +26,7 @@ public class StrawCoreBungee extends StrawAPIBungee {
 
     @Override
     public void onEnable() {
+        CORE = this;
         long startEnable = System.currentTimeMillis();
 
         info("### Started enabled of StrawberryCore");

@@ -23,7 +23,7 @@ public class StrawProxiedPlayer implements IStrawProxiedPlayer {
     public void load(Callback callback) {
         StrawCoreBungee.CORE.getProxy().getScheduler().runAsync(StrawCoreBungee.CORE, () -> {
             try {
-                Connection connection = StrawAPI.getAPI().getDataFactory().getDataSource().getConnection();
+                Connection connection = StrawCoreBungee.getAPI().getDataFactory().getDataSource().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE `uuid` = '" + getUniqueID().toString() + "'");
                 ResultSet resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {

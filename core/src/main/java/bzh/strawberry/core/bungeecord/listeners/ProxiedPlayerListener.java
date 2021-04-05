@@ -18,7 +18,7 @@ import net.md_5.bungee.event.EventPriority;
 
 public class ProxiedPlayerListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerJoin(PostLoginEvent event) {
         ProxiedPlayer player = event.getPlayer();
         StrawProxiedPlayer strawPlayer = new StrawProxiedPlayer(player);
@@ -26,7 +26,7 @@ public class ProxiedPlayerListener implements Listener {
         StrawCoreBungee.CORE.getPlayers().add(strawPlayer);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerQuit(PlayerDisconnectEvent event) {
         ProxiedPlayer player = event.getPlayer();
         StrawCoreBungee.CORE.getPlayers().remove(StrawCoreBungee.CORE.getStrawPlayer(player.getUniqueId()));
