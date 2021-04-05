@@ -1,3 +1,0 @@
-files:
-  - source: /l10n/*.json
-    translation: /core/src/main/resources/locale/%two_letters_code%/%original_file_name%

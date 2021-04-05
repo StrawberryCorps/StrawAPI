@@ -1,0 +1,6 @@
+name: StrawCore
+main: bzh.strawberry.core.bungeecord.StrawCoreBungee
+version: 0.0.1
+authors:
+  - Eclixal
+  - Uicias
