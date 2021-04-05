@@ -2,15 +2,11 @@ package bzh.strawberry.core.bungeecord;
 
 import bzh.strawberry.api.StrawAPIBungee;
 import bzh.strawberry.api.factory.DataFactory;
-import bzh.strawberry.api.player.IStrawProxiedPlayer;
 import bzh.strawberry.core.bungeecord.listeners.ProxiedPlayerListener;
 import bzh.strawberry.core.bungeecord.player.StrawProxiedPlayer;
 import bzh.strawberry.core.factory.MySQLFactory;
-import bzh.strawberry.core.player.StrawPlayer;
-import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import org.bukkit.configuration.file.YamlConfiguration;
+import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +38,6 @@ public class StrawCoreBungee extends StrawAPIBungee {
             getDataFolder().mkdir();
 
         File file = new File(getDataFolder(), "data.yml");
-
         if (!file.exists()) {
             try (InputStream in = getResourceAsStream("config.yml")) {
                 Files.copy(in, file.toPath());
@@ -51,15 +46,19 @@ public class StrawCoreBungee extends StrawAPIBungee {
             }
         }
 
-        File fileConfig = new File(getDataFolder(), "data.yml");
-        YamlConfiguration dataYML = YamlConfiguration.loadConfiguration(fileConfig);
+        Configuration configuration = null;
+        try {
+            configuration = YamlConfiguration.getProvider(YamlConfiguration.class).load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        String sqlUrl = dataYML.getString("url", "127.0.0.1");
-        String sqlUsername = dataYML.getString("user", "root");
-        String sqlPassword = dataYML.getString("pass", "passw0rd");
-        String database = dataYML.getString("database", "strawberry");
-        int sqlMinPoolSize = dataYML.getInt("minpoolsize", 1);
-        int sqlMaxPoolSize = dataYML.getInt("maxpoolsize", 10);
+        String sqlUrl = configuration.getString("url", "127.0.0.1");
+        String sqlUsername = configuration.getString("user", "root");
+        String sqlPassword = configuration.getString("pass", "passw0rd");
+        String database = configuration.getString("database", "strawberry");
+        int sqlMinPoolSize = configuration.getInt("minpoolsize", 1);
+        int sqlMaxPoolSize = configuration.getInt("maxpoolsize", 10);
 
         try {
             dataFactory = MySQLFactory.getInstance("jdbc:mysql://" + sqlUrl + ":3306/" + database, sqlUsername, sqlPassword, sqlMinPoolSize, sqlMaxPoolSize);
