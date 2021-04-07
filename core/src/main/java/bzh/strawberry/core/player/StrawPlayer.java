@@ -2,6 +2,7 @@ package bzh.strawberry.core.player;
 
 import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawPlayer;
+import bzh.strawberry.api.rank.Rank;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.callback.Callback;
 import bzh.strawberry.core.net.StrawScoreboard;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 /*
@@ -87,5 +89,15 @@ public class StrawPlayer implements IStrawPlayer {
         if (this.strawScoreboard == null)
             this.strawScoreboard = new StrawScoreboard(this.player, objectiveName);
         this.strawScoreboard.create();
+    }
+
+    @Override
+    public List<Rank> getRanks() {
+        return null;
+    }
+
+    @Override
+    public Rank getRank() {
+        return null;
     }
 }

@@ -1,7 +1,5 @@
 package bzh.strawberry.api.rank;
 
-import bzh.strawberry.api.servers.Server;
-
 /*
 This file Rank is part of a project StrawAPI.
 It was created on 16/06/2020 at 01:50 by Uicias.
@@ -10,10 +8,11 @@ Also this comment shouldn't get remove from the file. (see Licence.md)
 */
 public class Rank {
 
+    private int id;
     private int power;
     private String tab;
     private String chat;
-    private Server server;
+    private String server;
 
     /**
      * Might represent the rank on the whole network
@@ -21,8 +20,8 @@ public class Rank {
      * @param tab
      * @param chat
      */
-
-    public Rank(int p, String tab, String chat){
+    public Rank(int id, int p, String tab, String chat) {
+        this.id = id;
         this.power = p;
         this.tab = tab;
         this.chat = chat;
@@ -35,44 +34,31 @@ public class Rank {
      * @param chat
      * @param s
      */
-
-    public Rank(int p, String tab, String chat, Server s){
+    public Rank(int id, int p, String tab, String chat, String s) {
+        this.id = id;
         this.power = p;
         this.tab = tab;
         this.chat = chat;
         this.server = s;
     }
 
-    public int getPower() {
-        return power;
+    public int getId() {
+        return id;
     }
 
-    public void setPower(int power) {
-        this.power = power;
+    public int getPower() {
+        return power;
     }
 
     public String getTab() {
         return tab;
     }
 
-    public void setTab(String tab) {
-        this.tab = tab;
-    }
-
     public String getChat() {
         return chat;
     }
 
-    public void setChat(String chat) {
-        this.chat = chat;
-    }
-
-    public Server getServer() {
+    public String getServer() {
         return server;
     }
-
-    public void setServer(Server server) {
-        this.server = server;
-    }
-
 }

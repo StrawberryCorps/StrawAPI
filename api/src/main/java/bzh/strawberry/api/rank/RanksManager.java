@@ -1,6 +1,7 @@
 package bzh.strawberry.api.rank;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -11,23 +12,14 @@ Also this comment shouldn't get remove from the file. (see Licence.md)
 */
 public class RanksManager {
 
-    private List<Rank> rankList;
+    private List<Rank> ranks;
 
     /**
      * In case you wanna specify ranks in this method
      */
 
-    public RanksManager(){
+    public RanksManager() {
+        this.ranks = new ArrayList<>();
         //todo
     }
-
-    /**
-     * in case you wanna specify ranks via a configfile
-     * @param f the ConfigurationFile
-     */
-
-    public RanksManager(File f){
-        //todo
-    }
-
 }
