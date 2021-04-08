@@ -1,13 +1,14 @@
-package bzh.strawberry.api.rank;
+package bzh.strawberry.core.rank;
+
+import bzh.strawberry.api.rank.IRank;
 
 /*
-This file Rank is part of a project StrawAPI.
+This file IRank is part of a project StrawAPI.
 It was created on 16/06/2020 at 01:50 by Uicias.
 This file as the whole project shouldn't be modify by others without the express permission from StrawAPI author(s).
 Also this comment shouldn't get remove from the file. (see Licence.md)
 */
-public class Rank {
-
+public class Rank implements IRank {
     private int id;
     private int power;
     private String tab;
@@ -45,19 +46,15 @@ public class Rank {
     public int getId() {
         return id;
     }
-
     public int getPower() {
         return power;
     }
-
     public String getTab() {
         return tab;
     }
-
     public String getChat() {
         return chat;
     }
-
     public String getServer() {
         return server;
     }

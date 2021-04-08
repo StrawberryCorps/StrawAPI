@@ -2,10 +2,11 @@ package bzh.strawberry.core.player;
 
 import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawPlayer;
-import bzh.strawberry.api.rank.Rank;
+import bzh.strawberry.api.rank.IRank;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.callback.Callback;
 import bzh.strawberry.core.net.StrawScoreboard;
+import bzh.strawberry.core.rank.Rank;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -92,7 +93,7 @@ public class StrawPlayer implements IStrawPlayer {
     }
 
     @Override
-    public List<Rank> getRanks() {
+    public List<IRank> getRanks() {
         return null;
     }
 

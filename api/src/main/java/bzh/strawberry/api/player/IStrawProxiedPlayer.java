@@ -1,6 +1,6 @@
 package bzh.strawberry.api.player;
 
-import bzh.strawberry.api.rank.Rank;
+import bzh.strawberry.api.rank.IRank;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
  *  Also this comment shouldn't get remove from the file. (see Licence)
  */
 public interface IStrawProxiedPlayer {
-    List<Rank> getRanks();
-    Rank getRank();
+    List<IRank> getRanks();
+    IRank getRank();
 }

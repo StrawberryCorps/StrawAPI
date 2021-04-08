@@ -1,6 +1,5 @@
-package bzh.strawberry.api.rank;
+package bzh.strawberry.core.rank;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

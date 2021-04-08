@@ -1,10 +1,10 @@
 package bzh.strawberry.core.bungeecord.player;
 
-import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawProxiedPlayer;
-import bzh.strawberry.api.rank.Rank;
+import bzh.strawberry.api.rank.IRank;
 import bzh.strawberry.core.bungeecord.StrawCoreBungee;
 import bzh.strawberry.core.callback.Callback;
+import bzh.strawberry.core.rank.Rank;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.sql.Connection;
@@ -68,7 +68,7 @@ public class StrawProxiedPlayer implements IStrawProxiedPlayer {
     }
 
     @Override
-    public List<Rank> getRanks() {
+    public List<IRank> getRanks() {
         return null;
     }
 

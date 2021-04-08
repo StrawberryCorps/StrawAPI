@@ -7,7 +7,7 @@ package bzh.strawberry.api.player;
  *  Also this comment shouldn't get remove from the file. (see Licence)
  */
 import bzh.strawberry.api.net.IStrawScoreboard;
-import bzh.strawberry.api.rank.Rank;
+import bzh.strawberry.api.rank.IRank;
 
 import java.util.List;
 
@@ -15,6 +15,6 @@ public interface IStrawPlayer {
 
     IStrawScoreboard getScoreboard() throws Exception;
     void createScoreBoard(String objectiveName);
-    List<Rank> getRanks();
-    Rank getRank();
+    List<IRank> getRanks();
+    IRank getRank();
 }
