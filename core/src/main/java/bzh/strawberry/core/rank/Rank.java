@@ -11,33 +11,15 @@ Also this comment shouldn't get remove from the file. (see Licence.md)
 public class Rank implements IRank {
     private int id;
     private int power;
+    private String name;
     private String tab;
     private String chat;
     private String server;
 
-    /**
-     * Might represent the rank on the whole network
-     * @param p
-     * @param tab
-     * @param chat
-     */
-    public Rank(int id, int p, String tab, String chat) {
+    public Rank(int id, int p, String name, String tab, String chat, String s) {
         this.id = id;
         this.power = p;
-        this.tab = tab;
-        this.chat = chat;
-    }
-
-    /**
-     * Might represent the rank on a given server
-     * @param p
-     * @param tab
-     * @param chat
-     * @param s
-     */
-    public Rank(int id, int p, String tab, String chat, String s) {
-        this.id = id;
-        this.power = p;
+        this.name = name;
         this.tab = tab;
         this.chat = chat;
         this.server = s;
@@ -49,6 +31,9 @@ public class Rank implements IRank {
     public int getPower() {
         return power;
     }
+    public String getName() {
+        return name;
+    }
     public String getTab() {
         return tab;
     }
@@ -57,5 +42,9 @@ public class Rank implements IRank {
     }
     public String getServer() {
         return server;
+    }
+
+    public int compareTo(IRank rank) {
+        return rank.getPower() - this.getPower();
     }
 }

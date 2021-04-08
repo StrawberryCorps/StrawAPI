@@ -9,6 +9,7 @@ import bzh.strawberry.core.gui.InterfaceManager;
 import bzh.strawberry.core.listeners.PlayerListener;
 import bzh.strawberry.core.net.StrawChat;
 import bzh.strawberry.core.player.StrawPlayer;
+import bzh.strawberry.core.rank.RanksManager;
 import bzh.strawberry.core.servers.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -35,6 +36,7 @@ public class StrawCore extends StrawAPI {
 
     private StrawChat strawChat;
     private Server server;
+    private RanksManager ranksManager;
 
     private List<StrawPlayer> players;
 
@@ -88,10 +90,11 @@ public class StrawCore extends StrawAPI {
         this.players = new ArrayList<>();
         this.strawChat = new StrawChat();
 
+        this.ranksManager = new RanksManager();
+
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
         info("[CORE] Core enabled in " + (System.currentTimeMillis() - startEnable) + " ms...");
-
     }
 
     @Override
@@ -126,6 +129,10 @@ public class StrawCore extends StrawAPI {
     @Override
     public Server getStrawServer() {
         return this.server;
+    }
+
+    public RanksManager getRanksManager() {
+        return ranksManager;
     }
 
     public List<StrawPlayer> getPlayers() {
