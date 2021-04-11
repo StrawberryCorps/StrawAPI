@@ -2,16 +2,15 @@ package bzh.strawberry.core.player;
 
 import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawPlayer;
+import bzh.strawberry.api.rank.IRank;
 import bzh.strawberry.core.StrawCore;
 import bzh.strawberry.core.callback.Callback;
 import bzh.strawberry.core.net.StrawScoreboard;
+import bzh.strawberry.core.rank.Rank;
 import org.bukkit.entity.Player;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
+import java.sql.*;
+import java.util.*;
 
 /*
  * This file StrawPlayer is part of a project StrawAPI.core.
@@ -26,9 +25,11 @@ public class StrawPlayer implements IStrawPlayer {
     private final Player player;
 
     private StrawScoreboard strawScoreboard;
+    private List<IRank> ranks;
 
     public StrawPlayer(Player player) {
         this.player = player;
+        this.ranks = new ArrayList<>();
     }
 
     public void load(Callback callback) {
@@ -43,25 +44,49 @@ public class StrawPlayer implements IStrawPlayer {
                 } else {
                     resultSet.close();
                     preparedStatement.close();
-                    preparedStatement = connection.prepareStatement("INSERT INTO players (`uuid`) VALUES ('" + getUniqueID().toString() + "')");
+                    preparedStatement = connection.prepareStatement("INSERT INTO players (`uuid`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement.setString(1, getUniqueID().toString());
                     preparedStatement.executeUpdate();
-                    preparedStatement.close();
-                    preparedStatement = connection.prepareStatement("SELECT * FROM players WHERE `uuid`= ?");
-                    preparedStatement.setString(1, player.getUniqueId().toString());
-                    ResultSet resultSet1 = preparedStatement.executeQuery();
-                    if (resultSet1.next()) {
-                        strawId = resultSet1.getInt("id");
+                    resultSet = preparedStatement.getGeneratedKeys();
+                    if (resultSet.next()) {
+                        strawId = resultSet.getInt(1);
                     }
-                    resultSet1.close();
+                    resultSet.close();
+                    preparedStatement.close();
                 }
                 preparedStatement.close();
+
+                // Chargement des ranks
+                preparedStatement = connection.prepareStatement("SELECT * FROM player_ranks WHERE strawid = ?");
+                preparedStatement.setInt(1, this.strawId);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    this.ranks.add(StrawCore.CORE.getRanksManager().getRank(resultSet.getInt("rankid")));
+                    while (resultSet.next()) {
+                        this.ranks.add(StrawCore.CORE.getRanksManager().getRank(resultSet.getInt("rankid")));
+                    }
+                } else {
+                    // Ajout rank par défaut
+                    this.ranks.add(StrawCore.CORE.getRanksManager().getRank(1));
+                }
+
+                Collections.sort(this.ranks);
+
+                resultSet.close();
+                preparedStatement.close();
+
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+                player.kickPlayer("Une erreur est survenue sur vos données !");
             } finally {
                 callback.done();
             }
         });
+    }
+
+    public void save() {
+
     }
 
     public int getStrawId() {
@@ -87,5 +112,15 @@ public class StrawPlayer implements IStrawPlayer {
         if (this.strawScoreboard == null)
             this.strawScoreboard = new StrawScoreboard(this.player, objectiveName);
         this.strawScoreboard.create();
+    }
+
+    @Override
+    public List<IRank> getRanks() {
+        return this.ranks;
+    }
+
+    @Override
+    public Rank getRank() {
+        return (Rank) this.ranks.get(0);
     }
 }

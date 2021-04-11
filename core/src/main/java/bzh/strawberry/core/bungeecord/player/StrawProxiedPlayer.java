@@ -1,15 +1,17 @@
 package bzh.strawberry.core.bungeecord.player;
 
-import bzh.strawberry.api.StrawAPI;
 import bzh.strawberry.api.player.IStrawProxiedPlayer;
+import bzh.strawberry.api.rank.IRank;
 import bzh.strawberry.core.bungeecord.StrawCoreBungee;
 import bzh.strawberry.core.callback.Callback;
+import bzh.strawberry.core.rank.Rank;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 public class StrawProxiedPlayer implements IStrawProxiedPlayer {
@@ -63,5 +65,15 @@ public class StrawProxiedPlayer implements IStrawProxiedPlayer {
 
     public UUID getUniqueID() {
         return this.player.getUniqueId();
+    }
+
+    @Override
+    public List<IRank> getRanks() {
+        return null;
+    }
+
+    @Override
+    public Rank getRank() {
+        return null;
     }
 }

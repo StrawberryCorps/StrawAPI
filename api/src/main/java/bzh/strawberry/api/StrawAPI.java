@@ -5,6 +5,7 @@ import bzh.strawberry.api.gui.IInterfaceManager;
 import bzh.strawberry.api.net.IStrawChat;
 import bzh.strawberry.api.player.IStrawPlayer;
 import org.bukkit.entity.Player;
+import bzh.strawberry.api.servers.IServer;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -31,4 +32,5 @@ public abstract class StrawAPI extends JavaPlugin {
     public abstract IStrawPlayer getStrawPlayer(UUID uuid);
     public abstract Player getPlayer(String name);
 
+    public abstract IServer getStrawServer();
 }
