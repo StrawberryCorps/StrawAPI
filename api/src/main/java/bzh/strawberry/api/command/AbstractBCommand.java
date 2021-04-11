@@ -11,6 +11,9 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.Plugin;
 
+/**
+ * Abstraction des commandes BUNGEE
+ */
 public abstract class AbstractBCommand extends Command {
 
     protected final Plugin plugin;

@@ -12,6 +12,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 
+/**
+ * Abstraction des commandes (Craft)bukkit
+ */
 public abstract class AbstractCommand implements CommandExecutor {
 
     protected final Plugin plugin;

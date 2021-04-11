@@ -28,6 +28,8 @@
             <groupId>bzh.strawberry</groupId>
             <artifactId>api</artifactId>
             <version>0.0.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/../api/target/api-0.0.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -44,7 +46,7 @@
             <artifactId>craftbukkit</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/craftbukkit-1.16.5.jar</systemPath>
+            <systemPath>${project.basedir}/../lib/craftbukkit-1.16.5.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>

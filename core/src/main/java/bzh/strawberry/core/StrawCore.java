@@ -8,7 +8,9 @@ import bzh.strawberry.core.gui.InterfaceManager;
 import bzh.strawberry.core.listeners.PlayerListener;
 import bzh.strawberry.core.net.StrawChat;
 import bzh.strawberry.core.player.StrawPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
 import java.io.File;
@@ -113,6 +115,12 @@ public class StrawCore extends StrawAPI {
     @Override
     public StrawPlayer getStrawPlayer(UUID uuid) {
         return this.players.stream().filter(strawPlayer -> strawPlayer.getUniqueID().equals(uuid)).findFirst().orElse(null);
+    }
+
+    @Override
+    @SuppressWarnings("Deprecated")
+    public Player getPlayer(String name) {
+        return Bukkit.getOfflinePlayer(name).getPlayer();
     }
 
     public List<StrawPlayer> getPlayers() {
