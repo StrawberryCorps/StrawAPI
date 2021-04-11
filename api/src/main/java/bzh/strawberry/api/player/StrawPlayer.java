@@ -1,7 +1,7 @@
 package bzh.strawberry.api.player;
 
-import bzh.strawberry.api.rank.Rank;
-import bzh.strawberry.api.servers.Server;
+import bzh.strawberry.api.rank.IRank;
+import bzh.strawberry.api.servers.IServer;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -14,8 +14,8 @@ Also this comment shouldn't get remove from the file. (see Licence.md)
 */
 public abstract class StrawPlayer {
 
-    private Map<Server, Rank> rankServers;
-    private Rank staffAccess;
+    private Map<IServer, IRank> rankServers;
+    private IRank staffAccess;
 
     protected StrawPlayer() {
 

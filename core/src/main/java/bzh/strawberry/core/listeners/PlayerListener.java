@@ -44,6 +44,7 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+        event.setQuitMessage(null);
         StrawCore.CORE.getStrawPlayer(player.getUniqueId()).save();
         StrawCore.CORE.getPlayers().remove(StrawCore.CORE.getStrawPlayer(player.getUniqueId()));
     }
