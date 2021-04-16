@@ -51,7 +51,7 @@ public class StrawCore extends StrawAPI {
     public void onEnable(){
         long startEnable = System.currentTimeMillis();
 
-        info("### Started enabled of StrawberryCore");
+        getLogger().info("######################## [StrawCore - " + getDescription().getVersion() + "] #################################");
         info("Current version : " + this.getServer().getVersion());
         info("Authors : " + Arrays.toString(this.getDescription().getAuthors().toArray()));
 
@@ -96,7 +96,8 @@ public class StrawCore extends StrawAPI {
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
 
-        info("[CORE] Core enabled in " + (System.currentTimeMillis() - startEnable) + " ms...");
+        getLogger().info("######################## [StrawCore - Enable in " + (System.currentTimeMillis() - startEnable) + " ms] #################################");
+
     }
 
     @Override
