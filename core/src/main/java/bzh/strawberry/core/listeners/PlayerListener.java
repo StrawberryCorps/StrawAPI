@@ -33,9 +33,7 @@ public class PlayerListener implements Listener {
                 player.setPlayerListName(strawPlayer.getRank().getTab() + player.getName());
                 player.setDisplayName(strawPlayer.getRank().getTab() + player.getName());
                 PlayerUtil.setTag(player, strawPlayer.getRank().getName(), strawPlayer.getRank().getPower(), strawPlayer.getRank().getTab(), null);
-                if (strawPlayer.getRank().getPower() > 0) {
-                    StrawCore.CORE.getServer().getOnlinePlayers().forEach(player1 -> player1.sendMessage("OK TA MERE " + strawPlayer.getRank().getChat() + "ff"));
-                }
+
             }
         });
         StrawCore.CORE.getPlayers().add(strawPlayer);
