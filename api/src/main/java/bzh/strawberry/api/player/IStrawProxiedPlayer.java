@@ -1,5 +1,6 @@
 package bzh.strawberry.api.player;
 
+import bzh.strawberry.api.auth.ISession;
 import bzh.strawberry.api.rank.IRank;
 
 import java.util.List;
@@ -13,4 +14,5 @@ import java.util.List;
 public interface IStrawProxiedPlayer {
     List<IRank> getRanks();
     IRank getRank();
+    ISession getSession();
 }

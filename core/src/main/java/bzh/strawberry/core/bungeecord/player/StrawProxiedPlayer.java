@@ -1,5 +1,6 @@
 package bzh.strawberry.core.bungeecord.player;
 
+import bzh.strawberry.api.auth.ISession;
 import bzh.strawberry.api.player.IStrawProxiedPlayer;
 import bzh.strawberry.api.rank.IRank;
 import bzh.strawberry.core.bungeecord.StrawCoreBungee;
@@ -17,6 +18,7 @@ import java.util.UUID;
 public class StrawProxiedPlayer implements IStrawProxiedPlayer {
     private int strawId;
     private final ProxiedPlayer player;
+    private ISession session;
 
     public StrawProxiedPlayer(ProxiedPlayer player) {
         this.player = player;
@@ -75,5 +77,14 @@ public class StrawProxiedPlayer implements IStrawProxiedPlayer {
     @Override
     public Rank getRank() {
         return null;
+    }
+
+    @Override
+    public ISession getSession() {
+        return this.session;
+    }
+
+    public void setSession(ISession session) {
+        this.session = session;
     }
 }
