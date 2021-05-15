@@ -1,30 +1,24 @@
 package bzh.strawberry.api.auth.event;
 
-import net.md_5.bungee.api.Callback;
-import net.md_5.bungee.api.config.ServerInfo;
+import bzh.strawberry.api.auth.ISession;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.AsyncEvent;
+import net.md_5.bungee.api.plugin.Event;
 
-public class InitSessionEvent extends AsyncEvent<InitSessionEvent> {
+public class InitSessionEvent extends Event {
 
-    private ServerInfo serverInfo;
+    private ISession iSession;
     private ProxiedPlayer player;
 
-    public InitSessionEvent(ProxiedPlayer player, ServerInfo serverInfo, Callback<InitSessionEvent> done) {
-        super(done);
+    public InitSessionEvent(ProxiedPlayer player, ISession iSession) {
         this.player = player;
-        this.serverInfo = serverInfo;
+        this.iSession = iSession;
     }
 
     public ProxiedPlayer getPlayer() {
         return player;
     }
 
-    public ServerInfo getServerInfo() {
-        return serverInfo;
-    }
-
-    public void setServerInfo(ServerInfo serverInfo) {
-        this.serverInfo = serverInfo;
+    public ISession getiSession() {
+        return iSession;
     }
 }

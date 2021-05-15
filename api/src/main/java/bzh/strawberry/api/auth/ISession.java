@@ -15,5 +15,4 @@ public interface ISession {
     int getVersion();
     String getUsername();
     boolean isLogged();
-
 }
