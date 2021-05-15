@@ -2,6 +2,7 @@ package bzh.strawberry.core.bungeecord;
 
 import bzh.strawberry.api.StrawAPIBungee;
 import bzh.strawberry.api.factory.DataFactory;
+import bzh.strawberry.core.bungeecord.listeners.InitSessionListener;
 import bzh.strawberry.core.bungeecord.listeners.ProxiedPlayerListener;
 import bzh.strawberry.core.bungeecord.player.StrawProxiedPlayer;
 import bzh.strawberry.core.factory.MySQLFactory;
@@ -76,6 +77,7 @@ public class StrawCoreBungee extends StrawAPIBungee {
         this.players = new ArrayList<>();
 
         this.getProxy().getPluginManager().registerListener(this, new ProxiedPlayerListener());
+        this.getProxy().getPluginManager().registerListener(this, new InitSessionListener());
 
         info("[CORE] Core enabled in " + (System.currentTimeMillis() - startEnable) + " ms...");
     }
