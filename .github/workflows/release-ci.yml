@@ -19,7 +19,7 @@ jobs:
           java-version: 1.8
 
       - name: Build with Maven
-        run: mvn -B clean install deploy
+        run: mvn clean install deploy
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
